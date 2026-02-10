@@ -1,6 +1,5 @@
-#include <cstdio>
+#include "cli/dispatch.hpp"
 
-int main() {
-    std::printf("Hello, World!");
-    return 0;
+int main(int argc, char* argv[]) {
+    return humpty::cli::run(argc, argv);
 }

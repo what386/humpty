@@ -1,6 +1,6 @@
 # humpty
 
-> _For when you need all the king's horses and all the king's men to help get around filesize upload limits._
+> _For when you need all the king's horses and all the king's men to get around filesize upload limits_
 
 A small C++ utility to split large files into smaller chunks and rejoin them later.
 

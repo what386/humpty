@@ -23,7 +23,7 @@ target_link_libraries(humpty PRIVATE humpty_lib)
 target_include_directories(humpty PRIVATE src)
 
 enable_testing()
-file(GLOB TEST_SOURCES CONFIGURE_DEPENDS tests/*.cpp)
+file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS tests/*.cpp)
 add_executable(humpty_tests ${TEST_SOURCES})
 target_link_libraries(humpty_tests PRIVATE humpty_lib)
 target_include_directories(humpty_tests PRIVATE src tests)

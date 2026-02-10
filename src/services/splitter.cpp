@@ -119,7 +119,7 @@ bool split_file(const SplitRequest& request, SplitResult& result, std::string& e
         return false;
     }
 
-    const auto manifest_path = request.output_dir / (manifest.source_file_name + ".humpty.manifest");
+    const auto manifest_path = request.output_dir / (manifest.source_file_name + ".manifest");
     if (!humpty::models::write_manifest(manifest, manifest_path, error)) {
         return false;
     }

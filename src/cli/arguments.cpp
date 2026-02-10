@@ -8,10 +8,12 @@ namespace humpty::cli {
 std::string usage_text(std::string_view program_name) {
     std::ostringstream out;
     out << "Usage:\n"
-        << "  " << program_name << " split --input|-i <file> --out|-o <dir> --chunk-size|-c <size>\n"
+        << "  " << program_name << " split <input-file> [--out|-o <dir>] --chunk-size|-c <size>\n"
         << "  " << program_name << " join --manifest|-m <file> --output|-o <file> [--no-verify|-n]\n"
         << "  " << program_name << " --help\n"
         << "  " << program_name << " --version\n\n"
+        << "split defaults:\n"
+        << "  out dir: ./<input-filename>-humpty\n\n"
         << "Chunk size examples:\n"
         << "  1048576   (bytes)\n"
         << "  1M        (MiB)\n"

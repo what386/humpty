@@ -1,4 +1,5 @@
 #include <cctype>
+#include <filesystem>
 #include <limits>
 #include <string>
 #include <string_view>
@@ -75,6 +76,7 @@ ParsedArgs parse_arguments(int argc, char* argv[]) {
 
     if (command == "split") {
         SplitArgs split;
+        bool saw_input_positional = false;
 
         for (int i = 2; i < argc; ++i) {
             const std::string_view token = argv[i];
@@ -102,16 +104,25 @@ ParsedArgs parse_arguments(int argc, char* argv[]) {
                 split.chunk_size_bytes = size;
                 continue;
             }
+            if (!token.empty() && token.front() != '-' && !saw_input_positional) {
+                split.input_path = std::string(token);
+                saw_input_positional = true;
+                continue;
+            }
 
             parsed.command = CommandType::Invalid;
             parsed.error = "Unknown or incomplete split argument: " + std::string(token);
             return parsed;
         }
 
-        if (split.input_path.empty() || split.output_dir.empty() || split.chunk_size_bytes == 0) {
+        if (split.input_path.empty() || split.chunk_size_bytes == 0) {
             parsed.command = CommandType::Invalid;
-            parsed.error = "split requires --input <path> --out <dir> --chunk-size <bytes|K|M|G>.";
+            parsed.error = "split requires <input-file> and --chunk-size/-c <bytes|K|M|G>.";
             return parsed;
+        }
+        if (split.output_dir.empty()) {
+            const auto file_name = std::filesystem::path(split.input_path).filename().string();
+            split.output_dir = "./" + file_name + "-humpty";
         }
 
         parsed.command = CommandType::Split;

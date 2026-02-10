@@ -18,6 +18,10 @@ int main() {
         std::cerr << "roundtrip_tests failed: " << error << "\n";
         return 1;
     }
+    if (!humpty::tests::run_urandom_tests(error)) {
+        std::cerr << "urandom_tests failed: " << error << "\n";
+        return 1;
+    }
 
     std::cout << "All tests passed\n";
     return 0;

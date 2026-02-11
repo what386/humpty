@@ -45,14 +45,14 @@ Equivalent:
 ```bash
 cmake -S . -B build
 cmake --build build --target humpty_tests
-ctest --test-dir build --output-on-failure -R "^humpty_tests$"
+ctest --test-dir build --output-on-failure -R "^humpty_tests_"
 ```
 
 ## CLI
 
 ```text
 humpty split <input-file> [--out|-o <dir>] --chunk-size|-c <size>
-humpty join --manifest|-m <file> --output|-o <file> [--no-verify|-n]
+humpty join <manifest-file> --output|-o <file> [--no-verify|-n]
 humpty --help
 humpty --version
 ```
@@ -86,13 +86,13 @@ This creates:
 Join:
 
 ```bash
-./build/humpty join -m ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin
+./build/humpty join ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin
 ```
 
 Skip verification (faster, less safe):
 
 ```bash
-./build/humpty join -m ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin -n
+./build/humpty join ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin -n
 ```
 
 ## Manifest Format

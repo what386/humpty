@@ -141,10 +141,6 @@ ParsedArgs parse_arguments(int argc, char* argv[]) {
                 parsed.show_usage = true;
                 return parsed;
             }
-            if ((token == "--manifest" || token == "-m") && (i + 1) < argc) {
-                join.manifest_path = argv[++i];
-                continue;
-            }
             if ((token == "--output" || token == "-o") && (i + 1) < argc) {
                 join.output_path = argv[++i];
                 continue;

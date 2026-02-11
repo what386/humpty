@@ -9,7 +9,7 @@ std::string usage_text(std::string_view program_name) {
     std::ostringstream out;
     out << "Usage:\n"
         << "  " << program_name << " split <input-file> [--out|-o <dir>] --chunk-size|-c <size>\n"
-        << "  " << program_name << " join --manifest|-m <file> --output|-o <file> [--no-verify|-n]\n"
+        << "  " << program_name << " join <manifest-file> --output|-o <file> [--no-verify|-n]\n"
         << "  " << program_name << " --help\n"
         << "  " << program_name << " --version\n\n"
         << "split defaults:\n"

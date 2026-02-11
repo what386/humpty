@@ -132,6 +132,7 @@ ParsedArgs parse_arguments(int argc, char* argv[]) {
 
     if (command == "join") {
         JoinArgs join;
+        bool saw_manifest_positional = false;
 
         for (int i = 2; i < argc; ++i) {
             const std::string_view token = argv[i];
@@ -152,6 +153,11 @@ ParsedArgs parse_arguments(int argc, char* argv[]) {
                 join.verify_checksums = false;
                 continue;
             }
+            if (!token.empty() && token.front() != '-' && !saw_manifest_positional) {
+                join.manifest_path = std::string(token);
+                saw_manifest_positional = true;
+                continue;
+            }
 
             parsed.command = CommandType::Invalid;
             parsed.error = "Unknown or incomplete join argument: " + std::string(token);
@@ -160,7 +166,7 @@ ParsedArgs parse_arguments(int argc, char* argv[]) {
 
         if (join.manifest_path.empty() || join.output_path.empty()) {
             parsed.command = CommandType::Invalid;
-            parsed.error = "join requires --manifest <path> --output <path>.";
+            parsed.error = "join requires <manifest-file> and --output/-o <path>.";
             return parsed;
         }
 

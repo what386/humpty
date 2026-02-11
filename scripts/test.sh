@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cmake -S . -B build
-cmake --build build --target humpty_tests
-ctest --test-dir build --output-on-failure -R "^humpty_tests_"
+xmake build humpty_tests
+xmake run humpty_tests --case all
+xmake run humpty_tests --case splitter
+xmake run humpty_tests --case joiner
+xmake run humpty_tests --case roundtrip
+xmake run humpty_tests --case urandom

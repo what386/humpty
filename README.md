@@ -12,7 +12,7 @@ A small C++ utility to split large files into smaller chunks and rejoin them lat
 
 ## Requirements
 
-- CMake 3.16+
+- xmake
 - C++23 compiler
 
 ## Build
@@ -26,11 +26,14 @@ bash scripts/build.sh
 Equivalent:
 
 ```bash
-cmake -S . -B build
-cmake --build build --target humpty
+xmake build humpty
 ```
 
-Output is located in ./build/humpty
+Run with:
+
+```bash
+xmake run humpty -- --help
+```
 
 ## Test
 
@@ -43,9 +46,12 @@ bash scripts/test.sh
 Equivalent:
 
 ```bash
-cmake -S . -B build
-cmake --build build --target humpty_tests
-ctest --test-dir build --output-on-failure -R "^humpty_tests_"
+xmake build humpty_tests
+xmake run humpty_tests --case all
+xmake run humpty_tests --case splitter
+xmake run humpty_tests --case joiner
+xmake run humpty_tests --case roundtrip
+xmake run humpty_tests --case urandom
 ```
 
 ## CLI
@@ -73,7 +79,7 @@ humpty --version
 Split:
 
 ```bash
-./build/humpty split big-file.bin -c 64M
+xmake run humpty -- split big-file.bin -c 64M
 ```
 
 This creates:
@@ -86,13 +92,13 @@ This creates:
 Join:
 
 ```bash
-./build/humpty join ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin
+xmake run humpty -- join ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin
 ```
 
 Skip verification (faster, less safe):
 
 ```bash
-./build/humpty join ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin -n
+xmake run humpty -- join ./big-file.bin-humpty/big-file.bin.manifest -o ./big-file-restored.bin -n
 ```
 
 ## Manifest Format
